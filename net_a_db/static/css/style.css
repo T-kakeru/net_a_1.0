@@ -13,13 +13,14 @@ body *{
 
 main {
     min-height: 100vh;
-    background-color:#f5fbfd;
+    background: linear-gradient(to bottom, rgb(126, 213, 245), rgb(119, 189, 252), rgb(106, 179, 252));
     padding-top: 20px;
     padding-bottom: 50px;
     z-index: 5;
 }
 
 h2, h3{
+    margin: 10px 10px 5px 10px;
     font-family: fantasy;
 }
 
@@ -109,7 +110,7 @@ td {
 /*ヘッダー上メニュー*/
 header{
     width: 100%;
-    padding-top: 20px;
+    padding-top: 10px;
     /*縦、横中央揃え*/
     align-items: center;
     justify-content: center;
@@ -167,6 +168,11 @@ header{
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 7px;
+    transition: opacity 0.8s ease; /* 透明度の変化を滑らかに */
+}
+
+.home:hover{
+    opacity: 0.5; /* 50%の透明度に */
 }
 
 .search_menu{
@@ -231,7 +237,7 @@ header{
     height: 40px;
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: #67a7e2;
+    background-color: #3597f2;
     border: none;
     color: #ffffff;
     font-size: 15px;
@@ -241,7 +247,7 @@ header{
 }
 
 .button_css:hover{
-    background-color: #2c7896;
+    background-color: #2d74b5;
     color: #ffffff;
 }
 
@@ -339,7 +345,7 @@ header{
     justify-content: center;
     align-items: flex-start;
     overflow: hidden; /* はみ出した画像を非表示にする */
-    background-color: rgb(23, 23, 23); /* 親要素の背景色を設定（任意） */
+    background-color: rgb(125, 191, 245); /* 親要素の背景色を設定（任意） */
     aspect-ratio: 1 / 0.8; /* 縦横比を1:1に保持 */
 }
 
@@ -353,7 +359,6 @@ header{
     margin-top: 2px;
     font-family: sans-serif;
     font-weight: 600;
-    color: #ffffff;
 }
 
 .list_image_box{
@@ -370,7 +375,7 @@ header{
     justify-content: center;
     align-items: flex-start;
     overflow: hidden;
-    background-color: rgb(23, 23, 23);
+    background-color: rgb(125, 191, 245);
     aspect-ratio: 1 / 0.8; /* 縦横比を1:1 */
 }
 
@@ -384,7 +389,29 @@ header{
     margin-top: 2px;
     font-family: sans-serif;
     font-weight: 600;
-    color: #ffffff;
+}
+
+.home_name_text{
+    padding: 3px;
+    text-align: center;
+    color: #17215a;
+    text-overflow: ellipsis; /* 溢れたテキストの代わりに「...」を表示 */
+}
+
+.home_info_text{
+    overflow: hidden;        /* コンテンツがボックスを超えた場合に表示を隠す */
+    text-overflow: ellipsis; /* 溢れたテキストの代わりに「...」を表示 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;      /* 表示する行数を指定 */
+    -webkit-box-orient: vertical;
+    max-width: 93%;         /* 親要素の幅に合わせる */
+    color: #505277;
+}
+
+.slide_help_text{
+    font-size: 14px;
+    color: rgba(44, 44, 44, 0.589);
+    margin-right: 50px;
 }
 
 .more_list{
@@ -393,11 +420,16 @@ header{
 }
 
 .more_list a{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    color: #0051c2;
+    color: #17215a;
     margin-right: 30px;
-    margin-top: 5px;
+    margin-top: 2px;
+}
+
+.more_list a:hover {
+    color: #384fd3;
+    background-color: rgb(145, 221, 252);
 }
 
 .fish_info button{
@@ -537,7 +569,7 @@ header{
     position: relative; /* 子要素の絶対位置付けの基準点 */
     width: 200px;
     height: 200px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .icon-container .icon {
@@ -593,23 +625,25 @@ header{
     margin-bottom: 50px;
 }
 
-.color_red{
-    color: rgb(236, 54, 54);
+.color_netta{
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(0 163 98);
 }
 
 #color_bluck{
     color:#1f1f1f;
 }
 
-.color_sky{
+.color_Net{
     font-size: 23px;
-    color: #16c9c9;
+    color: #1800e7;
     font-weight: 600;
 }
 
-.color_blue{
+.color_a{
     font-size: 25px;
-    color: rgb(77, 77, 207);
+    color: rgb(173 11 0);
     font-weight: 600;
 }
 
@@ -644,9 +678,9 @@ header{
     height: 40px;
     line-height: 40px;
     margin: 12px 0px;
-    background-color: #67a7e2;
+    background-color: #3597f2;
     border: none;
-    color: #ffffff;
+    color: #ffffffd0;
     font-size: 15px;
     font-weight: 700;
     text-align: center;
@@ -654,16 +688,16 @@ header{
 }
 
 .setting_edit_button:hover{
-    background-color: #2c7896;
+    background-color: #2d74b5;
     color: #ffffff;
 }
 
 
 /*footer*/
 #footer_menu{
-    padding-top: 30px;
+    padding-top: 20px;
     padding-left: 5%;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     /*background-color: rgb(173, 243, 255);*/
     background-image: url('../img/footer.PNG');
 }
@@ -676,12 +710,6 @@ header{
 
 .footer_font:hover{
     color: #6b6f7a;
-}
-
-.footer_font1{
-    font-weight: bold;
-    color: #393939;
-    font-family: sans-serif;
 }
 
 .footer p{
@@ -697,6 +725,14 @@ header{
     
     header{
         padding-top: 0px;
+    }
+
+    .header_flex_image{
+        height: 60px;
+    }
+
+    .footer_font{
+        font-size: 12px;
     }
     
     table {
@@ -761,13 +797,27 @@ header{
     .slide_image_item div{
         font-size: 7px;
     }
-
+    .slide_help_text{
+        font-size: 7px;
+    }
+    
     .list_image_item {
         width: 80px;
     }
     
     .list_image_item div{
         font-size: 5px;
+    }
+
+    .home_name_text{
+        padding: 0px;
+    }
+    
+    .home_info_text{
+        font-size: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;      /* 表示する行数を指定 */
+        -webkit-box-orient: vertical;
     }
 
     .category div{
