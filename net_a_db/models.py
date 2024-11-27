@@ -35,6 +35,27 @@ class UserInfo(models.Model):
 
 
 class FishInfo(models.Model):
+    LOCATION_CHOICES = [
+        ('1', '自宅'),
+        ('2', 'ペットショップ'),
+        ('3', '水族館・展示'),
+        ('4', 'その他'),
+    ]
+    
+    AGE_CHOICES = [
+        ('1', '１ヵ月未満'),
+        ('2', '１～３ヵ月'),
+        ('3', '３～６ヵ月'),
+        ('4', '６～１２ヵ月'),
+        ('5', '１年以上'),
+        ('6', '２年以上'),
+        ('7', '３年以上'),
+        ('8', '５年以上'),
+        ('9', '７年以上'),
+        ('10', '１０年以上'),
+        ('11', '不明'),
+    ]
+    
     GENDER_CHOICES = [
         ('1', '不明'),
         ('2', 'オス'),
@@ -42,7 +63,7 @@ class FishInfo(models.Model):
     ]
 
     CATEGORY_CHOICES = [
-        ('1', ''),
+        ('1', 'なし'),
         ('2', 'アロワナ'),
         ('3', 'ポリプテルス'),
         ('4', 'プレコ'),
@@ -75,12 +96,13 @@ class FishInfo(models.Model):
         ('31', 'ハゼ'),
         ('32', 'ハタ'),
         ('33', 'フグ'),
-        ('34', 'エイ、サメ'),
+        ('34', 'サメ、エイ'),
         ('35', 'タコ、イカ'),
         ('36', 'クラゲ、ナマコ、ヒトデなど'),
         ('37', '海のエビ、貝、カニ'),
         ('38', '一般に食用魚等の魚種'),
         ('39', 'その他海水魚'),
+        ('40', 'その他生物'),
     ]
 
     TEMP_CHOICES = [
@@ -116,6 +138,9 @@ class FishInfo(models.Model):
         ('13', '300'),
         ('14', '400'),
         ('15', '500'),
+        ('15', '700'),
+        ('16', '1000'),
+        ('17', '2000'),
     ]
         
     user = models.ForeignKey(
@@ -130,7 +155,7 @@ class FishInfo(models.Model):
     category = models.CharField(max_length=20, null=True, blank=True, choices=CATEGORY_CHOICES)
     fish_mixed = models.TextField(max_length=200, null=True, blank=True)
     temp = models.CharField(max_length=20, null=True, blank=True, choices=TEMP_CHOICES)
-    fish_size = models.CharField(max_length=20, null=True, blank=True)
+    fish_size = models.IntegerField(null=True, blank=True)
     aquarium_size = models.CharField(max_length=20, null=True, blank=True, choices=AQUARIUM_SIZE_CHOICES)
     material = models.TextField(max_length=200, null=True, blank=True)
     food = models.TextField(max_length=200, null=True, blank=True)
@@ -138,6 +163,12 @@ class FishInfo(models.Model):
     good = models.IntegerField(null=True, blank=True)
     create_at = models.DateTimeField(default=timezone.datetime.now)
     update_at = models.DateTimeField(default=timezone.datetime.now)
+    #新たに飼育場所と飼育年数を追加
+    age = models.CharField(max_length=20, null=True, blank=True, choices=AGE_CHOICES)
+    location = models.CharField(max_length=20, null=True, blank=True, choices=LOCATION_CHOICES)
+    fish_price = models.IntegerField(null=True, blank=True)
+    #test = models.CharField(max_length=50, null=True, blank=True)
+    
 
 class Favorite(models.Model):
     user = models.ForeignKey(
