@@ -26,6 +26,7 @@
                             <div>
                                 <img id="preview" src="" alt="プレビュー画像" style="max-width: 200px; max-height: 130px; display: none;">
                             </div>
+                            <div style="margin-left: 10px; font-size: 13px; color: #46494d">※写真は横向きで！</div>
                         </div>
                     </th>
                 </tr>
@@ -42,7 +43,16 @@
                     <th>魚の大きさ</th><td>{{ fish_info_form.fish_size }}(cm)</td>
                 </tr>
                 <tr class="form_table">
-                    <th>水槽のサイズ</th><td>{{ fish_info_form.aquarium_size }}(cm)</td>
+                    <th>この魚の値段(約)</th><td>{{ fish_info_form.fish_price }}(円)</td>
+                </tr>
+                <tr class="form_table">
+                    <th>飼育場所</th><td>{{ fish_info_form.location }}</td>
+                </tr>
+                <tr class="form_table">
+                    <th>飼育年数</th><td>{{ fish_info_form.age }}</td>
+                </tr>
+                <tr class="form_table">
+                    <th>水槽のサイズ</th><td>{{ fish_info_form.aquarium_size }}(cm以上)</td>
                 </tr>
                 <tr class="form_table">
                     <th>性別</th><td>{{ fish_info_form.gender }}</td>

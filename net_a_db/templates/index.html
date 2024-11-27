@@ -16,7 +16,8 @@
                 {% if fish_info.preview %}            
                     <div class="slide_image_item">
                         <div>
-                            <div>{{ fish_info.name }}</div>
+                            <div class="home_name_text">{{ fish_info.name }}</div>
+                            <div class="home_info_text">{{ fish_info.info }}</div>
                             <img src="{{ fish_info.preview.url }}" alt="{{ fish_info.name }}" width="100%">
                         </div>
                     </div>
@@ -24,7 +25,10 @@
                 </a>
             {% endfor %}
         </section>
-        <div class="more_list"><a href="{% url 'fish_new_list' %}">もっと見る≫</a></div>
+        <div class="more_list">
+            <span class="slide_help_text">≪画像をスライドしてみてね≫</span>
+            <a href="{% url 'fish_new_list' %}">もっと見る≫</a>
+        </div>
 
         <h2 class="left">人気の魚</h2>
         <section class="slide_image">
@@ -33,7 +37,8 @@
             {% if fish_info_favorite.preview %}            
                 <div class="slide_image_item">
                     <div>
-                        <div>{{ fish_info_favorite.name }}</div>
+                        <div class="home_name_text">{{ fish_info_favorite.name }}</div>
+                        <div class="home_info_text">{{ fish_info_favorite.info }}</div>
                         <img src="{{ fish_info_favorite.preview.url }}" alt="{{ fish_info_favorite.name }}" width="100%">
                     </div>
                 </div>
@@ -50,7 +55,8 @@
                 {% if fish_info_size.preview %}            
                     <div class="slide_image_item">
                         <div>
-                            <div>{{ fish_info_size.name }}</div>
+                            <div class="home_name_text">{{ fish_info_size.name }}</div>
+                            <div class="home_info_text">{{ fish_info_size.info }}</div>
                             <img src="{{ fish_info_size.preview.url }}" alt="{{ fish_info_size.name }}" width="100%">
                         </div>
                     </div>
@@ -60,7 +66,83 @@
         </section>
         <div class="more_list"><a href="{% url 'fish_size_list' %}">もっと見る≫</a></div>
 
-        <!--<h2>珍しい魚</h2>
+        <h2 class="left">値段が高い魚</h2>
+        <section class="slide_image" style="margin-bottom: 20px;">
+        {% for fish_info_expensive in fish_infos_expensive %}
+            <a href="{% url 'fish_info' fish_info_expensive.id %}">
+            {% if fish_info_expensive.preview %}            
+                <div class="slide_image_item">
+                    <div>
+                        <div class="home_name_text">{{ fish_info_expensive.name }}</div>
+                        <div class="home_info_text">{{ fish_info_expensive.info }}</div>
+                        <img src="{{ fish_info_expensive.preview.url }}" alt="{{ fish_info_expensive.name }}" width="100%">
+                    </div>
+                </div>
+            {% endif %}
+            </a>
+        {% endfor %}
+        </section>
+        
+        <h2 class="left">みんなが飼っている魚</h2>
+        <section class="slide_image" style="margin-bottom: 20px;">
+        {% for fish_info_owned in fish_infos_owned %}
+            <a href="{% url 'fish_info' fish_info_owned.id %}">
+            {% if fish_info_owned.preview %}            
+                <div class="slide_image_item">
+                    <div>
+                        <div class="home_name_text">{{ fish_info_owned.name }}</div>
+                        <div class="home_info_text">{{ fish_info_owned.info }}</div>
+                        <img src="{{ fish_info_owned.preview.url }}" alt="{{ fish_info_owned.name }}" width="100%">
+                    </div>
+                </div>
+            {% endif %}
+            </a>
+        {% endfor %}
+        </section>
+        
+        <h2 class="left">水族館や、展示されている魚</h2>
+        <section class="slide_image" style="margin-bottom: 20px;">
+        {% for fish_info_museum in fish_infos_museum %}
+            <a href="{% url 'fish_info' fish_info_museum.id %}">
+            {% if fish_info_museum.preview %}            
+                <div class="slide_image_item">
+                    <div>
+                        <div class="home_name_text">{{ fish_info_museum.name }}</div>
+                        <div class="home_info_text">{{ fish_info_museum.info }}</div>
+                        <img src="{{ fish_info_museum.preview.url }}" alt="{{ fish_info_museum.name }}" width="100%">
+                    </div>
+                </div>
+            {% endif %}
+            </a>
+        {% endfor %}
+        </section>
+
+        <h2 class="left">長期間飼育されている魚</h2>
+        <section class="slide_image" style="margin-bottom: 20px;">
+        {% for fish_info_veteran in fish_infos_veteran %}
+            <a href="{% url 'fish_info' fish_info_veteran.id %}">
+            {% if fish_info_veteran.preview %}            
+                <div class="slide_image_item">
+                    <div>
+                        <div class="home_name_text">{{ fish_info_veteran.name }}</div>
+                        <div class="home_info_text">{{ fish_info_veteran.info }}</div>
+                        <img src="{{ fish_info_veteran.preview.url }}" alt="{{ fish_info_veteran.name }}" width="100%">
+                    </div>
+                </div>
+            {% endif %}
+            </a>
+        {% endfor %}
+        </section>
+        <!--
+            値段が高い魚
+            水族館の魚
+            海水魚
+            みんなが飼育している魚
+            長期飼育できている魚
+            珍しい魚
+            以外にお手頃価格な魚（同じ種類の魚の中でも特に値段が安い）
+        -->
+        <!--<h2>珍しい魚（投稿数の少ない名前の魚）</h2>
         <section class="slide_image">
             {% for fish_info in fish_infos %}
                 <a href="{% url 'fish_info' fish_info.id %}">
@@ -120,7 +202,7 @@
                 <div>カサゴ</div>
                 <div>フグ</div>
                 <div>カワハギ</div>
-                <div>エイ・サメ</div>
+                <div>サメ、エイ</div>
                 <div>タコ・イカ</div>
                 <div>ウニ・ナマコ</div>
                 <div>クラゲ</div>
@@ -136,7 +218,7 @@
                 <div>中型魚</div>
                 <div>大型魚</div>
                 <div>回遊魚・青魚</div>
-                <div>底もの</div>
+                <div>底魚</div>
                 <div>観賞魚</div>
                 <div>卵</div>
                 <div>幼魚</div>

@@ -13,6 +13,7 @@
                 </a>
                 <a href="{% url 'icon_change' %}">
                     <img src="{% static 'img/icon_change.png' %}" class="icon-change" alt="アイコンを変更するボタン">
+                    <div style="color: #535353b6;">{{ user_profile.icon.icon_name }}</div>
                 </a>
             </div>
             <table>

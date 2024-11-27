@@ -17,14 +17,14 @@
                 {% csrf_token %}
                 <div class="good_box good_end">
                     <button type="submit">
-                        <img src="{% static 'img/good.jpg' %}" class="good" alt="" width="32px" height="32px">
+                        <img src="{% static 'img/good.png' %}" class="good" alt="" width="32px" height="32px">
                     </button>
                     <span class="good_count bottom">{{ good_count }}</span>
                 </div>
             </form>
         {% else %}
             <div class="good_box good_end">
-                <img src="{% static 'img/good.jpg' %}" class="good" alt="" width="32px" height="32px">
+                <img src="{% static 'img/good.png' %}" class="good" alt="" width="32px" height="32px">
                 <span class="good_count bottom">{{ good_count }}</span>
             </div>
         {% endif %}
@@ -32,30 +32,48 @@
         <!-- 表示情報があれば表示 -->
         <table id="color_bluck">
 
-            {% if fish_info.fish_size %}
-            <tr class="form_table">
-                <th>魚の大きさ</th><td>{{ fish_info.fish_size }}(cm)</td>
-            </tr>
-            {% endif %}
-            
-            {% if fish_info.aquarium_size %}
-            <tr class="form_table">
-                <th>水槽のサイズ</th><td>{{ fish_info.get_aquarium_size_display }}(cm)</td>
-            </tr>
-            {% endif %}
-            
-            {% if fish_info.temp %}
-            <tr class="form_table">
-                <th>飼育温度</th><td>{{ fish_info.get_temp_display }}(℃)</td>
-            </tr>
-            {% endif %}
-
             {% if fish_info.category %}
             <tr class="form_table">
                 <th>飼育情報</th><td>{{ fish_info.info }}</td>
             </tr>
             {% endif %}
+
+            {% if fish_info.fish_size %}
+            <tr class="form_table">
+                <th>魚の大きさ</th><td>{{ fish_info.fish_size }}(cm)</td>
+            </tr>
+            {% endif %}
+
+            {% if fish_info.fish_price %}
+            <tr class="form_table">
+                <th>この魚の値段(約)</th><td>{{ fish_info.fish_price }}(円)</td>
+            </tr>
+            {% endif %}
             
+            {% if fish_info.aquarium_size %}
+            <tr class="form_table">
+                <th>水槽のサイズ</th><td>{{ fish_info.get_aquarium_size_display }}(cm以上)</td>
+            </tr>
+            {% endif %}
+            
+            {% if fish_info.temp %}
+            <tr class="form_table">
+                <th>飼育温度</th><td>{{ fish_info.get_temp_display }}（℃）</td>
+            </tr>
+            {% endif %}
+
+            {% if fish_info.location %}
+            <tr class="form_table">
+                <th>飼育場所</th><td>{{ fish_info.get_location_display }}</td>
+            </tr>
+            {% endif %}
+
+            {% if fish_info.age %}
+            <tr class="form_table">
+                <th>飼育年数</th><td>{{ fish_info.get_age_display }}</td>
+            </tr>
+            {% endif %}
+
             {% if fish_info.fish_mixed %}
             <tr class="form_table">
                 <th>混泳できる魚</th><td>{{ fish_info.fish_mixed }}</td>
