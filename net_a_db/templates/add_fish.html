@@ -22,10 +22,11 @@
             </tr>
             <tr class="form_table" id="preview_bottom">
                 <th style="padding: 0;">
-                    <div id="image_preview slide_image_item" style="margin-top: 20px;">
+                    <d id="image_preview slide_image_item" style="margin-top: 20px;">
                         <div>
                             <img id="preview" src="" alt="プレビュー画像" style="max-width: 200px; max-height: 130px; display: none;">
                         </div>
+                        <div style="margin-left: 10px; font-size: 13px; color: #46494d">※写真は横向きで！</div>
                     </div>
                 </th>
             </tr>
@@ -33,26 +34,34 @@
                 <th>名前（必須）</th><td>{{fish_info_form.name}}</td>
             </tr>
             <tr class="form_table">
-                <th>＃タグ</th><td>{{ fish_info_form.category }}</td>
-            </tr>
-            <tr class="form_table">
-                <th>飼育温度</th><td>{{ fish_info_form.temp }}(℃)</td>
+                <th>飼育情報</th><td>{{ fish_info_form.info }}</td>
             </tr>
             <tr class="form_table">
                 <th>魚の大きさ</th><td>{{ fish_info_form.fish_size }}(cm)</td>
             </tr>
             <tr class="form_table">
-                <th>水槽のサイズ</th><td>{{ fish_info_form.aquarium_size }}(cm)</td>
+                <th>この魚の値段(約)</th><td>{{ fish_info_form.fish_price }}(円)</td>
+            </tr>
+            <tr class="form_table">
+                <th>飼育場所</th><td>{{ fish_info_form.location }}</td>
+            </tr>
+            <tr class="form_table">
+                <th>飼育年数</th><td>{{ fish_info_form.age }}</td>
+            </tr>
+            <tr class="form_table">
+                <th>飼育温度</th><td>{{ fish_info_form.temp }}(℃)</td>
+            </tr>
+            <tr class="form_table">
+                <th>水槽のサイズ</th><td>{{ fish_info_form.aquarium_size }}(cm以上)</td>
             </tr>
             <tr class="form_table">
                 <th>性別</th><td>{{ fish_info_form.gender }}</td>
             </tr>
-            
             <tr class="form_table">
-                <th>飼育情報</th><td>{{ fish_info_form.info }}</td>
+                <th>＃タグ</th><td>{{ fish_info_form.category }}</td>
             </tr>
             <tr class="form_table">
-                <th>混泳できる魚</th><td>{{ fish_info_form.fish_mixed }}</td>
+                <th>混泳できた魚</th><td>{{ fish_info_form.fish_mixed }}</td>
             </tr>
             <tr class="form_table">
                 <th>用品、レイアウト</th><td>{{ fish_info_form.material }}</td>
