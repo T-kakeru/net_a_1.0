@@ -188,17 +188,27 @@ def info(request):
     return HttpResponse('ログインしています')
 
 #indexの色々な情報を表示
+from django.db.models import Count
+
 def index(request):
     fish_infos = FishInfo.objects.order_by('-create_at')
     fish_infos_size = FishInfo.objects.filter(fish_size__gte=23).order_by('-create_at').all()
-    fish_infos_favorites = FishInfo.objects.order_by('-good')
+    fish_infos_favorites = FishInfo.objects.annotate(favorite_count=Count('favorite')).order_by('-favorite_count', '-create_at')
+    fish_infos_expensive = FishInfo.objects.filter(fish_price__gte=4500).order_by('-create_at').all()
+    fish_infos_owned = FishInfo.objects.filter(location=1).order_by('-create_at').all()
+    fish_infos_museum = FishInfo.objects.filter(location=3).order_by('-create_at').all()#水族館
+    fish_infos_veteran = FishInfo.objects.filter(age__gte=8).order_by('-create_at').all()#3年以上
     return render(request, 'index.html', {
         'fish_infos': fish_infos,
         'fish_infos_size': fish_infos_size,
         'fish_infos_favorites': fish_infos_favorites,
+        'fish_infos_expensive': fish_infos_expensive,
+        'fish_infos_owned': fish_infos_owned,
+        'fish_infos_museum': fish_infos_museum,
+        'fish_infos_veteran': fish_infos_veteran,
         })
 
-#下記、もっと見る[最新の投稿、大きい魚、人気の魚]
+#下記、もっと見る[最新の投稿、大きい魚、人気の魚] 1自宅３水族館
 def fish_new_list(request):
     fish_new_list = FishInfo.objects.order_by('-create_at')
     return render(request, 'fish_new_list.html', {'fish_new_list': fish_new_list})
@@ -208,7 +218,7 @@ def fish_size_list(request):
     return render(request, 'fish_size_list.html', {'fish_size_list': fish_size_list})
 
 def fish_favorite_list(request):
-    fish_favorite_list = FishInfo.objects.order_by('-good')
+    fish_favorite_list = FishInfo.objects.annotate(favorite_count=Count('favorite')).order_by('-favorite_count', '-create_at')
     return render(request, 'fish_favorite_list.html', {'fish_favorite_list': fish_favorite_list})
 
 #詳細情報、いいねカウント
@@ -254,7 +264,7 @@ def favorite_list(request):
 
 #自分の魚
 def my_fish(request):
-    my_fishs = FishInfo.objects.filter(user=request.user)
+    my_fishs = FishInfo.objects.filter(user=request.user).order_by('-update_at')
     return render(request, 'my_fish.html', {'my_fishs': my_fishs})
     
 
@@ -262,14 +272,67 @@ def my_fish(request):
 from django.db.models import Q
 from django.urls import reverse
 # フォームからのPOSTリクエストを処理するビュー
-def search_fish_info(request):
+"""def search_fish_info(request):
     if request.method == 'POST':  # POSTリクエストを受け取った場合
         query = request.POST.get('q', '')  # フォームから検索クエリを取得
         return redirect(f"{reverse('search_results')}?q={query}")  # 検索クエリをURLパラメータに含めてリダイレクト
-    return render(request, 'search_form.html')
+    return render(request, 'search_form.html')"""
 
 # 検索結果を表示するビュー
-def search_results(request):
+from django.shortcuts import render
+from .models import FishInfo
+from django.db.models import Q
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
+def search_fish_info(request):
+    if request.method == 'POST':
+        # フォームから絞り込み条件を取得
+        query = request.POST.get('q', '')
+        category = request.POST.get('category', '')
+        max_size = request.POST.get('max_size', '')
+        min_size = request.POST.get('min_size', '')
+        info = request.POST.get('info', '')
+        fish_mixed = request.POST.get('fish_mixed', '')
+        food = request.POST.get('food', '')
+        aquarium_size = request.POST.get('aquarium_size', '')
+        material = request.POST.get('material', '')
+
+        # 絞り込み条件に基づくクエリを構築
+        queries = Q(name__icontains=query)
+        if category:
+            queries &= Q(category=category)
+        if max_size:
+            queries &= Q(fish_size__lte=max_size)
+        if min_size:
+            queries &= Q(fish_size__gte=min_size)
+        if info:
+            queries &= Q(info__icontains=info)
+        if fish_mixed:
+            queries &= Q(fish_mixed__icontains=fish_mixed)
+        if food:
+            queries &= Q(food__icontains=food)
+        if aquarium_size:
+            queries &= Q(aquarium_size=aquarium_size)
+        if material:
+            queries &= Q(material__icontains=material)
+
+        # 絞り込みクエリセットを実行
+        fish_info_search = FishInfo.objects.filter(queries)
+
+        # テンプレートに渡すコンテキスト
+        context = {
+            'fish_info_search': fish_info_search,
+            'query': query,
+            'error': None if fish_info_search else '該当する情報が見つかりません。'
+        }
+
+        return render(request, 'search.html', context)
+
+    return render(request, 'search.html')
+
+
+"""def search_results(request):
     query = request.GET.get('q', '')  # GETリクエストから検索クエリを取得
     context = {'query': query}
     if query:  # 検索クエリに基づいてFishInfoオブジェクトを検索
@@ -278,7 +341,7 @@ def search_results(request):
             context['error'] = '該当する情報が見つかりません。'
         else:
             context['fish_info_search'] = fish_info_search
-    return render(request, 'search.html', context)
+    return render(request, 'search.html', context)"""
 
 #アイコン選択機能
 from .models import UserProfile, Icon
